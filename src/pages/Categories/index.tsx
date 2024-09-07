@@ -1,95 +1,45 @@
 import ProductsList from "../../components/ProductsList"
-import Game from "../../models/Game"
-import resident from '../../assets/images/resident.png'
-import diablo from '../../assets/images/diablo.png'
-import zelda from '../../assets/images/zelda.png'
-import starWars from '../../assets/images/star_wars.png'
+import { Game } from "../../pages/Home"
+import { useEffect, useState } from "react"
 
-const promocoes:Game[] = [
-  {
-    id: 1,
-    category: 'Ação',
-    description: 'Resident Evil 4 é um marco na franquia Resident Evil e no gênero survival horror como um todo. Lançado originalmente em 2005 e reimaginado em 2023, o jogo acompanha Leon S. Kennedy, agora um agente especial, em uma missão para resgatar a filha do presidente dos Estados Unidos, sequestrada por um culto misterioso em uma remota vila espanhola.',
-    title: 'Resident Evil 4',
-    system: 'Windows',
-    infos: ['10%', 'R$ 250,00'],
-    image: resident,
-  },
-  {
-    id: 2,
-    category: 'Ação',
-    description: 'Resident Evil 4 é um marco na franquia Resident Evil e no gênero survival horror como um todo. Lançado originalmente em 2005 e reimaginado em 2023, o jogo acompanha Leon S. Kennedy, agora um agente especial, em uma missão para resgatar a filha do presidente dos Estados Unidos, sequestrada por um culto misterioso em uma remota vila espanhola.',
-    title: 'Diablo',
-    system: 'PS5',
-    infos: ['5%', 'R$ 290,00'],
-    image: diablo,
-  },
-  {
-    id: 3,
-    category: 'Ação',
-    description: 'Resident Evil 4 é um marco na franquia Resident Evil e no gênero survival horror como um todo. Lançado originalmente em 2005 e reimaginado em 2023, o jogo acompanha Leon S. Kennedy, agora um agente especial, em uma missão para resgatar a filha do presidente dos Estados Unidos, sequestrada por um culto misterioso em uma remota vila espanhola.',
-    title: 'Zelda',
-    system: 'Windows',
-    infos: ['10%', 'R$ 250,00'],
-    image: zelda,
-  },
-  {
-    id: 4,
-    category: 'Ação',
-    description: 'Resident Evil 4 é um marco na franquia Resident Evil e no gênero survival horror como um todo. Lançado originalmente em 2005 e reimaginado em 2023, o jogo acompanha Leon S. Kennedy, agora um agente especial, em uma missão para resgatar a filha do presidente dos Estados Unidos, sequestrada por um culto misterioso em uma remota vila espanhola.',
-    title: 'Star Wars',
-    system: 'Windows',
-    infos: ['10%', 'R$ 250,00'],
-    image: starWars,
-  },
-]
+const Categories = () => {
+  const [gameAcao, setGameAcao] = useState<Game[]>([])
+  const [gameEsportes, setGameEsportes] = useState<Game[]>([])
+  const [gameSimulacao, setGameSimulacao] = useState<Game[]>([])
+  const [gameLuta, setGameLuta] = useState<Game[]>([])
+  const [gameRpg, setGameRpg] = useState<Game[]>([])
 
-const emBreve:Game[] = [
-  {
-    id: 5,
-    category: 'Ação',
-    description: 'Resident Evil 4 é um marco na franquia Resident Evil e no gênero survival horror como um todo. Lançado originalmente em 2005 e reimaginado em 2023, o jogo acompanha Leon S. Kennedy, agora um agente especial, em uma missão para resgatar a filha do presidente dos Estados Unidos, sequestrada por um culto misterioso em uma remota vila espanhola.',
-    title: 'Diablo',
-    system: 'PS5',
-    infos: ['18/05'],
-    image: diablo,
-  },
-  {
-    id: 6,
-    category: 'Ação',
-    description: 'Resident Evil 4 é um marco na franquia Resident Evil e no gênero survival horror como um todo. Lançado originalmente em 2005 e reimaginado em 2023, o jogo acompanha Leon S. Kennedy, agora um agente especial, em uma missão para resgatar a filha do presidente dos Estados Unidos, sequestrada por um culto misterioso em uma remota vila espanhola.',
-    title: 'Diablo',
-    system: 'PS5',
-    infos: ['18/05'],
-    image: diablo,
-  },
-  {
-    id: 7,
-    category: 'Ação',
-    description: 'Resident Evil 4 é um marco na franquia Resident Evil e no gênero survival horror como um todo. Lançado originalmente em 2005 e reimaginado em 2023, o jogo acompanha Leon S. Kennedy, agora um agente especial, em uma missão para resgatar a filha do presidente dos Estados Unidos, sequestrada por um culto misterioso em uma remota vila espanhola.',
-    title: 'Diablo',
-    system: 'PS5',
-    infos: ['18/05'],
-    image: diablo,
-  },
-  {
-    id: 8,
-    category: 'Ação',
-    description: 'Resident Evil 4 é um marco na franquia Resident Evil e no gênero survival horror como um todo. Lançado originalmente em 2005 e reimaginado em 2023, o jogo acompanha Leon S. Kennedy, agora um agente especial, em uma missão para resgatar a filha do presidente dos Estados Unidos, sequestrada por um culto misterioso em uma remota vila espanhola.',
-    title: 'Diablo',
-    system: 'PS5',
-    infos: ['18/05'],
-    image: diablo,
-  },
-]
+  useEffect(() => {
+    fetch('https://fake-api-tau.vercel.app/api/eplay/acao')
+      .then((res) => res.json())
+      .then((res) => setGameAcao(res))
 
-const Categories = () => (
-  <>
-    <ProductsList games={promocoes} title='RPG' background='gray' />
-    <ProductsList games={emBreve} title='Ação' background='black' />
-    <ProductsList games={promocoes} title='Aventura' background='gray' />
-    <ProductsList games={emBreve} title='FPS' background='black' />
-  </>
-)
+    fetch('https://fake-api-tau.vercel.app/api/eplay/esportes')
+      .then((res) => res.json())
+      .then((res) => setGameEsportes(res))
+
+    fetch('https://fake-api-tau.vercel.app/api/eplay/simulacao')
+      .then((res) => res.json())
+      .then((res) => setGameSimulacao(res))
+
+    fetch('https://fake-api-tau.vercel.app/api/eplay/luta')
+      .then((res) => res.json())
+      .then((res) => setGameLuta(res))
+
+    fetch('https://fake-api-tau.vercel.app/api/eplay/rpg')
+      .then((res) => res.json())
+      .then((res) => setGameRpg(res))
+  }, [])
+
+  return (
+    <>
+      <ProductsList games={gameAcao} title='Ação' background='gray' />
+      <ProductsList games={gameEsportes} title='Esportes' background='black' />
+      <ProductsList games={gameLuta} title='Luta' background='gray' />
+      <ProductsList games={gameRpg} title='rpg' background='black' />
+      <ProductsList games={gameSimulacao} title='Simulação' background='gray' />
+    </>
+  )
+}
 
 export default Categories
