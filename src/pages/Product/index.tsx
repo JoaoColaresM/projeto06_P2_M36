@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import Hero from "../../components/Hero"
 import Section from "../../components/Section"
 import Galley from "../../components/Gallery"
+import resident from '../../assets/images/resident.png'
 
 const Product = () => {
     const {id} = useParams()
@@ -21,9 +22,10 @@ const Product = () => {
             <b>Plataforma</b>: PlayStation 5<br/>
             <b>Desenvolvedor:</b> Avargrg egerbe<br/>
             <b>Editora:</b> jrgejbgkjbejvbejnejvnejvnejke<br/>
-            <b>Idiomas:</b> jgkwjbkjvkjv kjv sfjkv kjv kjvs jv <br/>        </p>
+            <b>Idiomas:</b> jgkwjbkjvkjv kjv sfjkv kjv kjvs jv <br/>
+          </p>
         </Section>
-        <Galley/>
+        <Galley defaultCover={resident} name="Jogo"/>
       </>
     )
 }
