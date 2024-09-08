@@ -2,30 +2,42 @@ import { useParams } from "react-router-dom"
 import Hero from "../../components/Hero"
 import Section from "../../components/Section"
 import Galley from "../../components/Gallery"
-import resident from '../../assets/images/resident.png'
+import { useEffect, useState } from "react"
+import { Game } from "../Home"
 
 const Product = () => {
     const {id} = useParams()
 
+    const [game, setGame] = useState<Game>()
+
+    useEffect(() => {
+      fetch(`https://fake-api-tau.vercel.app/api/eplay/jogos/${id}`)
+        .then((res) => res.json())
+        .then((res) => setGame(res))
+    }, [id])
+
+    if(!game) {
+      return <h3>Carregando...</h3>
+    }
+
     return (
       <>
-        <Hero/>
+        <Hero game={game}/>
         <Section title="Sobre o jogo" background="black">
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Eum dolores veniam voluptas consectetur placeat.
-            Deleniti voluptatum non repudiandae laudantium, quidem dignissimos harum maiores delectus, rem unde ipsa porro eos odio.
-          </p>
+          <p>{game.description}</p>
         </Section>
         <Section title="Mais detalhes" background="gray">
           <p>
-            <b>Plataforma</b>: PlayStation 5<br/>
-            <b>Desenvolvedor:</b> Avargrg egerbe<br/>
-            <b>Editora:</b> jrgejbgkjbejvbejnejvnejvnejke<br/>
-            <b>Idiomas:</b> jgkwjbkjvkjv kjv sfjkv kjv kjvs jv <br/>
+            <b>Plataforma: </b>{game.details.system}<br/>
+            <b>Desenvolvedor: </b>{game.details.developer}<br/>
+            <b>Editora: </b>{game.details.publisher}<br/>
+            <b>Idiomas: </b>{game.details.languages.join(', ')}<br/>
           </p>
         </Section>
-        <Galley defaultCover={resident} name="Jogo"/>
+        <Galley
+          name={game.name}
+          defaultCover={game.media.cover}
+          items={game.media.gallery}/>
       </>
     )
 }
